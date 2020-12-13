@@ -24,7 +24,24 @@ schema.methods.decrementHP = function(val) {
   const hp = this.HP - val;
   this.HP = Math.max(hp, 0);
 };
+schema.methods.incrementEXP = function(val) {
+  let exp = this.exp + val;
+  let lvl = this.level;
+  let levelUp = false;
+  while (true) {
+    if (exp < lvl * 20) break;
+    exp -= lvl * 20;
+    lvl += 1;
+    this.str += 1;
+    this.def += 1;
+    this.maxHP += 1;
+    levelUp = true;
+  }
+  this.exp = exp;
+  this.level = lvl;
 
+  return levelUp;
+};
 const Player = mongoose.model('Player', schema);
 
 module.exports = {

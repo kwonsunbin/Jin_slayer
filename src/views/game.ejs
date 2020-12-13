@@ -12,6 +12,7 @@
   <div id="position" style="font-size:150%"></div>
 
   <div id="status" style="font-size:120%" >
+    level: <span id="level"></span></br>
     HP: <span id="HP"> 0 / 0</span></br>
     inventroy: <span id="inventory"> </span></br>
     str: <span id="str"> </span></br>
@@ -59,7 +60,7 @@
         } else {
           $('#event_result').text("아무일도 일어나지 않았다.");
         }
-
+        $('#level').text(`${player.level}(${player.exp} / ${player.level * 20})`)
         $('#HP').text(`${player.HP} / ${player.maxHP}`)
         $('#inventory').text(`${player.inventory}`)
         $('#str').text(`${player.str}`)

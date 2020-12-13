@@ -21,36 +21,41 @@ const battleEvent = (player) => {
       break;
     }
     battleScript.push(
-        `${player.name}은 ${monster.name}에게 ${damageGiven}의 피해를 주었다.`,
+        `${player.name}은/는 ${monster.name}에게 ${damageGiven}의 피해를 주었다.`,
     );
     monsterHP = Math.max(monsterHP - damageGiven, 0);
     battleScript.push(
-        `${player.name}의 HP: (${playerHP}/${player.maxHP}), ${monster.name}의 HP: (${monsterHP}/${monster.hp})`,
+        `${player.name}의 HP: (${playerHP}/${player.maxHP}), ${monster.name}의 HP: (${monsterHP}/${monster.hp})\n`,
     );
 
     if (monsterHP <= 0) {
-      battleScript.push(`${player.name}는 ${monster.name}을 무찔렀다.`);
+      battleScript.push(`${player.name}은/는 ${monster.name}을/를 무찔러 경험치 ${monster.exp}를 획득했다.`);
+      const levelUp = player.incrementEXP(monster.exp);
+      if (levelUp) {
+        playerHP = player.maxHP;
+        battleScript.push('***LEVEL UP: 체력이 회복되고, 능력치가 올라갔다.***');
+      }
       result = 'win';
       break;
     }
     battleScript.push(
-        `${monster.name}은 ${player.name}에게 ${damageGotten}의 피해를 주었다.`,
+        `${monster.name}은/는 ${player.name}에게 ${damageGotten}의 피해를 주었다.`,
     );
 
     playerHP = Math.max(playerHP - damageGotten, 0);
     battleScript.push(
-        `${player.name}의 HP: (${playerHP}/${player.maxHP}), ${monster.name}의 HP: (${monsterHP}/${monster.hp})`,
+        `${player.name}의 HP: (${playerHP}/${player.maxHP}), ${monster.name}의 HP: (${monsterHP}/${monster.hp})\n`,
     );
 
     if (playerHP <= 0) {
       battleScript.push(
-          `${player.name}은 사망했다. 평원의 시작점으로 되돌아갔다.`,
+          `${player.name}은/는 사망했다. 평원의 시작점으로 되돌아갔다.`,
       );
       result = 'lose';
       break;
     }
   }
-  battleScript.unshift(`${monster.name}가 나올 것 같은 그런 스산한 분위기가 느껴진다.`);
+  battleScript.unshift(`${monster.name}이/가 나올 것 같은 그런 스산한 분위기가 느껴진다.`);
   return {
     battleScript: battleScript.join('\n'),
     result,
@@ -60,19 +65,19 @@ const battleEvent = (player) => {
 
 const treasureEvent = (player) => {
   const item = randomChoice(items);
-  const itemScript = [`보물상자를 발견! \n${item.name}을 획득했다.`];
+  const itemScript = [`보물상자를 발견! \n${item.name}을/를 획득했다.`];
   player.inventory.push(item.name);
-  itemScript.push(`가방에 ${item.name}을 넣었다.`);
+  itemScript.push(`가방에 ${item.name}을/를 넣었다.`);
   if (item.def) {
     player.def = player.def + item.def;
     itemScript.push(
-        `def 능력치가 ${item.def}만큼 상승하여 ${player.def}가 되었다.`,
+        `def 능력치가 ${item.def}만큼 상승하여 ${player.def}이/가 되었다.`,
     );
   }
   if (item.str) {
     player.str = player.str + item.str;
     itemScript.push(
-        `str 능력치가 ${item.str}만큼 상승하여 ${player.str}가 되었다.`,
+        `str 능력치가 ${item.str}만큼 상승하여 ${player.str}이/가 되었다.`,
     );
   }
   return {itemScript: itemScript.join('\n')};

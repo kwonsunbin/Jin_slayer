@@ -74,7 +74,12 @@ app.post('/action', authentication, async (req, res) => {
   let event = null;
   if (action === 'query') {
     const field = mapManager.getField(req.player.x, req.player.y);
-    return res.send({player, field});
+    const actions = [];
+    field.canGo.forEach((direction) => {
+      actions.push({url: '/action', text: 'text', params: {direction}});
+    });
+    event = {description: '평원의 시작점이다.'};
+    return res.send({player, field, event, actions});
   } else if (action === 'move') {
     const direction = parseInt(req.body.direction, 0); // 0 북. 1 동 . 2 남. 3 서.
     let x = req.player.x;
@@ -113,7 +118,7 @@ app.post('/action', authentication, async (req, res) => {
           // 배틀 패배
           player.x = 0;
           player.y = 0;
-          player.HP = 10;
+          player.HP = player.maxHP;
           field = mapManager.getField(0, 0);
         } else {
           // 배틀 무승부
@@ -134,7 +139,7 @@ app.post('/action', authentication, async (req, res) => {
         if (player.HP == 0) {
           player.x = 0;
           player.y = 0;
-          player.HP = 10;
+          player.HP = player.maxHP;
           field = mapManager.getField(0, 0);
         }
         event = {description: trapScript};
