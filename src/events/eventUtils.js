@@ -112,7 +112,12 @@ const dieEvent = (player) => {
   player.x = 0;
   player.y = 0;
   player.HP = player.maxHP;
-  return '***사망했습니다..***';
+  if (!player.inventory.length) {
+    return `***사망했는데 잃어버릴 아이템도 없습니다.***`;
+  } else {
+    const lostItem = player.inventory.splice(Math.floor(Math.random()*player.inventory.length), 1);
+    return `***사망하여 ${lostItem} 아이템을 잃어버렸습니다.***`;
+  }
 };
 module.exports = {
   battleEvent,
