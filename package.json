@@ -7,12 +7,15 @@
     "start": "nodemon src/index.js"
   },
   "dependencies": {
-    "ejs": "3.1.5",
-    "express": "4.17.1",
+    "crypto": "^1.0.1",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
     "express-validator": "6.7.0",
-    "mongoose": "5.11.1"
+    "mongoose": "^5.11.1"
   },
   "devDependencies": {
+    "eslint": "^7.15.0",
+    "eslint-config-google": "^0.14.0",
     "nodemon": "1.18.4"
   },
   "keywords": []

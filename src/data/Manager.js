@@ -1,3 +1,4 @@
+/* eslint-disable require-jsdoc */
 const fs = require('fs');
 
 class Manager {
@@ -32,11 +33,11 @@ class MapManager extends Manager {
   }
 }
 const constantManager = new ConstantManager(
-  JSON.parse(fs.readFileSync(__dirname + '/constants.json'))
+    JSON.parse(fs.readFileSync(__dirname + '/constants.json')),
 );
 
 const mapManager = new MapManager(
-  JSON.parse(fs.readFileSync(__dirname + '/map.json'))
+    JSON.parse(fs.readFileSync(__dirname + '/map.json')),
 );
 
 module.exports = {
