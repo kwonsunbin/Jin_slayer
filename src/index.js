@@ -95,7 +95,7 @@ app.post('/action', authentication, async (req, res) => {
     } else {
       res.sendStatus(400);
     }
-    let field = mapManager.getField(x, y);
+    const field = mapManager.getField(x, y);
     if (!field) res.sendStatus(400);
     player.x = x;
     player.y = y;
@@ -110,20 +110,7 @@ app.post('/action', authentication, async (req, res) => {
         event = {description: '학기의 시작점이다.'};
         break;
       case 'battle':
-        const {battleScript, result, playerHP} = battleEvent(player);
-        if (result === 'win') {
-          // 배틀 승리
-          player.HP = playerHP;
-        } else if (result == 'lose') {
-          // 배틀 패배
-          player.x = 0;
-          player.y = 0;
-          player.HP = player.maxHP;
-          field = mapManager.getField(0, 0);
-        } else {
-          // 배틀 무승부
-          player.HP = playerHP;
-        }
+        const {battleScript} = battleEvent(player);
         event = {
           description: battleScript,
         };
@@ -136,12 +123,6 @@ app.post('/action', authentication, async (req, res) => {
         break;
       case 'trap':
         const {trapScript} = trapEvent(player);
-        if (player.HP == 0) {
-          player.x = 0;
-          player.y = 0;
-          player.HP = player.maxHP;
-          field = mapManager.getField(0, 0);
-        }
         event = {description: trapScript};
         break;
       case 'rest':
@@ -162,7 +143,12 @@ app.post('/action', authentication, async (req, res) => {
     });
 
     await player.save();
-    return res.send({player, field, event, actions});
+    return res.send({
+      player,
+      field: mapManager.getField(player.x, player.y),
+      event,
+      actions,
+    });
   }
 });
 

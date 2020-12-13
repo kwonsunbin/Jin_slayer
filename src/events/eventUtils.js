@@ -9,7 +9,7 @@ const battleEvent = (player) => {
   let monsterHP = monster.hp;
   let turn = 0;
   let result = '';
-  const battleScript = [];
+  const battleScript = [`${monster.name}이/가 나올 것 같은 그런 스산한 분위기가 느껴진다.`];
 
   damageGiven = player.str - monster.def < 0 ? 0 : player.str - monster.def;
   damageGotten = monster.str - player.def < 0 ? 0 : monster.str - player.def;
@@ -55,12 +55,16 @@ const battleEvent = (player) => {
       break;
     }
   }
-  battleScript.unshift(`${monster.name}이/가 나올 것 같은 그런 스산한 분위기가 느껴진다.`);
-  return {
-    battleScript: battleScript.join('\n'),
-    result,
-    playerHP,
-  };
+  switch (result) {
+    case 'win':
+    case 'draw':
+      player.HP = playerHP;
+      break;
+    case 'lose':
+      battleScript.push(dieEvent(player));
+      break;
+  }
+  return {battleScript: battleScript.join('\n')};
 };
 
 const treasureEvent = (player) => {
@@ -85,12 +89,15 @@ const treasureEvent = (player) => {
 
 const trapEvent = (player) => {
   const randomDamage = randomChoice([1, 2, 3, 4, 5]);
+  const trapScript = [];
   player.decrementHP(randomDamage);
   if (player.HP == 0) {
-    return {trapScript: `함정에 빠져 HP ${randomDamage} 감소해 사망했다. 학기의 시작점으로 되돌아갔다.`};
+    trapScript.push(`함정에 빠져 HP ${randomDamage} 감소해 사망했다. 학기의 시작점으로 되돌아갔다.`);
+    trapScript.push(dieEvent(player));
   } else {
-    return {trapScript: `함정에 빠졌다. HP ${randomDamage} 감소.`};
+    trapScript.push(`함정에 빠졌다. HP ${randomDamage} 감소.`);
   }
+  return {trapScript: trapScript.join('\n')};
 };
 
 const restEvent = (player) => {
@@ -100,6 +107,12 @@ const restEvent = (player) => {
 };
 const randomEvent = () => {
   return randomChoice(['battle', 'treasure', 'trap', 'rest', 'nothing']);
+};
+const dieEvent = (player) => {
+  player.x = 0;
+  player.y = 0;
+  player.HP = player.maxHP;
+  return '***사망했습니다..***';
 };
 module.exports = {
   battleEvent,
