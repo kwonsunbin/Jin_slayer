@@ -78,7 +78,7 @@ app.post('/action', authentication, async (req, res) => {
     field.canGo.forEach((direction) => {
       actions.push({url: '/action', text: 'text', params: {direction}});
     });
-    event = {description: '평원의 시작점이다.'};
+    event = {description: '학기의 시작점이다.'};
     return res.send({player, field, event, actions});
   } else if (action === 'move') {
     const direction = parseInt(req.body.direction, 0); // 0 북. 1 동 . 2 남. 3 서.
@@ -107,7 +107,7 @@ app.post('/action', authentication, async (req, res) => {
     }
     switch (events) {
       case 'start':
-        event = {description: '평원의 시작점이다.'};
+        event = {description: '학기의 시작점이다.'};
         break;
       case 'battle':
         const {battleScript, result, playerHP} = battleEvent(player);

@@ -49,7 +49,7 @@ const battleEvent = (player) => {
 
     if (playerHP <= 0) {
       battleScript.push(
-          `${player.name}은/는 사망했다. 평원의 시작점으로 되돌아갔다.`,
+          `${player.name}은/는 사망했다. 학기의 시작점으로 되돌아갔다.`,
       );
       result = 'lose';
       break;
@@ -87,7 +87,7 @@ const trapEvent = (player) => {
   const randomDamage = randomChoice([1, 2, 3, 4, 5]);
   player.decrementHP(randomDamage);
   if (player.HP == 0) {
-    return {trapScript: `함정에 빠져 HP ${randomDamage} 감소해 사망했다. 평원의 시작점으로 되돌아갔다.`};
+    return {trapScript: `함정에 빠져 HP ${randomDamage} 감소해 사망했다. 학기의 시작점으로 되돌아갔다.`};
   } else {
     return {trapScript: `함정에 빠졌다. HP ${randomDamage} 감소.`};
   }
