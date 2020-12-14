@@ -86,9 +86,9 @@ https://codesandbox.io/s/zhen-seulreieo-l9136
 ## Trouble Shooting
 1. Index.js에서의 Event Handling
 	- 문제
-		index.js의 app.post('/action')에서 모든 이벤트에 관한 로직을 다루는 것이 가독성이 떨어지고 추가스펙 구현하는 것에 있어서 보수작업에 어려움을 겪었다.
+	* index.js의 app.post('/action')에서 모든 이벤트에 관한 로직을 다루는 것이 가독성이 떨어지고 추가스펙 구현하는 것에 있어서 보수작업에 어려움을 겪었다.
 	- 해결방법
-		eventUtils.js 파일을 만들어 해당 event 처리 및 그에 해당하는 Script를 만들어 return하도록 함수들을 구분하였다.
+		* eventUtils.js 파일을 만들어 해당 event 처리 및 그에 해당하는 Script를 만들어 return하도록 함수들을 구분하였다.
 		- battleEvent
 		- treasureEvent
 		- trapEvent
@@ -100,9 +100,9 @@ https://codesandbox.io/s/zhen-seulreieo-l9136
 	
 2. 사망 시, 화면에 표시되는 Script와 현재 위치 동기화 문제
 	- 문제
-		Battle/Trap Event에서 사망한 경우, 해당 Event 스크립트를 보여주며 위치는 (0,0)으로 가야하는데 동기화를 시키지 못하고 있던 문제가 있었다.
+		* Battle/Trap Event에서 사망한 경우, 해당 Event 스크립트를 보여주며 위치는 (0,0)으로 가야하는데 동기화를 시키지 못하고 있던 문제가 있었다.
 	- 해결방법
-		index.js의 app.post('/action')에서 이동한 위치의 Field를 가져와 Event 핸들링을 하고 eventUtils의 dieEvent에서 player의 위치를 (0,0)으로 업데이트 해준다. 그 다음에 response를 보낼 때, player의 (x,y)에 해당하는 Field를 가져와 parameter로 세팅해준다. 사망하지 않은 경우에는 앞서 이동한 위치에 해당하는 Field가 그대로 response로 넘어갈 것이고, 사망했을 경우에만 이동한 위치가 아닌 시작점(0,0)에 해당하는 Field가 넘어간다.
+		* index.js의 app.post('/action')에서 이동한 위치의 Field를 가져와 Event 핸들링을 하고 eventUtils의 dieEvent에서 player의 위치를 (0,0)으로 업데이트 해준다. 그 다음에 response를 보낼 때, player의 (x,y)에 해당하는 Field를 가져와 parameter로 세팅해준다. 사망하지 않은 경우에는 앞서 이동한 위치에 해당하는 Field가 그대로 response로 넘어갈 것이고, 사망했을 경우에만 이동한 위치가 아닌 시작점(0,0)에 해당하는 Field가 넘어간다.
 	
 	
 ## Event Example
