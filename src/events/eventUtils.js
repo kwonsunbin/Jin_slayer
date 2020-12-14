@@ -11,11 +11,11 @@ const battleEvent = (player) => {
   let result = '';
   const battleScript = [`${monster.name}이/가 나올 것 같은 그런 스산한 분위기가 느껴진다.`];
 
-  damageGiven = player.str - monster.def < 0 ? 0 : player.str - monster.def;
-  damageGotten = monster.str - player.def < 0 ? 0 : monster.str - player.def;
+  const damageGiven = player.str - monster.def < 0 ? 0 : player.str - monster.def;
+  const damageGotten = monster.str - player.def < 0 ? 0 : monster.str - player.def;
   while (true) {
     turn += 1;
-    if (turn == 10) {
+    if (turn === 10) {
       battleScript.push('무승부다.');
       result = 'draw';
       break;
@@ -91,7 +91,7 @@ const trapEvent = (player) => {
   const randomDamage = randomChoice([1, 2, 3, 4, 5]);
   const trapScript = [];
   player.decrementHP(randomDamage);
-  if (player.HP == 0) {
+  if (player.HP === 0) {
     trapScript.push(`함정에 빠져 HP ${randomDamage} 감소해 사망했다. 학기의 시작점으로 되돌아갔다.`);
     trapScript.push(dieEvent(player));
   } else {
