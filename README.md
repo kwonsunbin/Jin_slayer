@@ -105,17 +105,23 @@ https://codesandbox.io/s/zhen-seulreieo-l9136
 	
 	
 ## Event Example
-- 시작점(start)
-	![start](https://photos.app.goo.gl/o9MYAEiPkxGk58xm7)
-- 몬스터(battle)
-	승리
-	패배
-- 보물상자(treasure)
-	하나
-- 함정(trap)
-	사망, hp 감소
-- 쉼터(rest)
-	hp증가
-- 아무것도 아님(nothing)
-	- 1
-- 랜덤(random)
+
+### 시작점(start)
+<img src="./images/start.png" width="40%">
+
+### 몬스터(battle)
+<img src="./images/battle_win.jpeg" width="60%">
+<img src="./images/battle_die_no_item.png" width="60%">
+<img src="./images/battle_die_with_item.png" width="60%">
+
+### 보물상자(treasure)
+<img src="./images/treasure.jpeg" width="60%">
+
+### 함정(trap)
+<img src="./images/trap.png" width="60%">
+
+### 쉼터(rest)
+<img src="./images/rest.jpeg" width="60%">
+
+### 아무것도 아님(nothing)
+<img src="./images/nothing.jpeg" width="60%">
